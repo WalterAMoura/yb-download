@@ -1,0 +1,16 @@
+Options -Indexes
+
+<FilesMatch "\.ini$" >
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "\.env$" >
+    Deny from all
+</FilesMatch>
+
+# Ligar o REWRITE de urls
+RewriteEngine on
+
+# Regra de REWRITE tudo para index
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ ./index.php [QSA,NC]
