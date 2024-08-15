@@ -1,0 +1,45 @@
+*{margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif;}
+
+.mainCalendar, .calendarUser, .calendarManager, .mainCalendarEventsChurch{
+    width: 100%;
+    margin: 30px auto;
+    height: 125vh;
+}
+.calendar, .calendarEventsChurch{
+    height: 55vh;
+}
+.calendarTeamLineup{
+    width: 100%;
+    margin: 30px auto;
+    height: 75vh;
+}
+a.disabled {
+    pointer-events: none;
+    color: rgb(128, 128, 128);
+    text-decoration: none;
+}
+/* styles.css */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#full-page-card {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+footer {
+    background-color: #fff;
+    border-top:1px solid #dee2e6;
+    color:#869099;
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
