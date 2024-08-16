@@ -16,7 +16,7 @@ define("PATH_MAIN", getenv('PATH_MAIN'));
 define("PATH_LOGO_PNG", getenv('PATH_LOGO_PNG'));
 define("PATH_LOGO_ICO", getenv('PATH_LOGO_ICO'));
 define("PATH_LOGO_PNG_IASD", getenv('PATH_LOGO_PNG_IASD'));
-define("PATH_DOWNLOAD", getenv('PATH_DOWNLOAD'));
+define("PATH_DOWNLOAD", __DIR__ . '/../'. getenv('PATH_DOWNLOAD'));
 define("PATH_DEFAULT_IMG", getenv('PATH_DEFAULT_IMG'));
 const BIN_YT_DLP = __DIR__ . '/../bin/yt-dlp';
 //Define valor padrão das variáveis
