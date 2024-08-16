@@ -7,7 +7,7 @@ use App\Utils\View;
 class Page
 {
     /**
-     * Método responsável por retonar o conteúdo da estrututa de páginas do painel
+     * Método responsável por retornar o conteúdo da estrutura de páginas do painel
      * @param string $title
      * @param string  $content
      * @return string
