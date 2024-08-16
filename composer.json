@@ -1,12 +1,12 @@
 {
-  "name": "sleyersx/financial-control",
-  "description": "Sistema para controle financeiro pessoal",
+  "name": "sleyersx/youtube-download",
+  "description": "Sistema para uso pessoal para realizar o download de videos do YouTube.",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
     {
       "name": "Walter Moura",
-      "email": "walter.moura@sleyersx.com.br"
+      "email": "walter.moura@wmourax.com.br"
     }
   ],
   "autoload": {
@@ -16,14 +16,9 @@
   },
   "require": {
     "ext-pdo": "*",
-    "web-token/jwt-framework": "^3.1",
     "ext-curl": "*",
     "ext-mbstring": "*",
-    "twilio/sdk": "^7.3",
-    "phpmailer/phpmailer": "^6.8",
     "ext-openssl": "*",
-    "react/http": "^1.9",
-    "react/event-loop": "^1.4",
     "norkunas/youtube-dl-php": "dev-master"
   },
   "extra": {
