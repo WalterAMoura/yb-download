@@ -7,7 +7,7 @@ use App\Utils\Environment;
 use App\Http\Middleware\Queue as MiddlewareQueue;
 
 //Carrega variáveis de ambiente
-Environment::load(__DIR__);
+Environment::load(__DIR__ . '../');
 
 // Define a constante de URL do projeto
 define("URL", getenv('URL'));
