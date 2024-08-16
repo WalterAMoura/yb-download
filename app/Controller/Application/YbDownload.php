@@ -4,107 +4,24 @@ namespace App\Controller\Application;
 
 use App\Http\Request;
 use App\Model\Entity\Organization as EntityOrganization;
-use App\Session\Users\Login as SessionUsersLogin;
 use App\Utils\Debug;
 use App\Utils\General;
 use App\Utils\View;
-use App\Utils\ViewJS;
 use DateTime;
 use DateTimeZone;
 use Exception;
-use http\Url;
 use YoutubeDl\Options;
 use YoutubeDl\YoutubeDl;
 
 class YbDownload extends Page
 {
     /**
-     * @var array|array[]
-     */
-    private static array $tables = [];
-
-    /**
-     * Método responsável por retornar os scripts js para gráficos
-     * @return string
-     * @throws Exception
-     */
-    private static function getTables(): string
-    {
-        // recupera variáveis de sessão do usuário
-        $session=SessionUsersLogin::getDataSession();
-        $userId = $session['usuario']['id'];
-
-        //scripts
-        $tables = '';
-
-        //Navega nos gráficos
-        foreach (self::$tables as $module) {
-            //$tables .= Charts::getCharts($module['type'],$module['script'],$module['id']);
-            $tables .= View::render($module['path'] . '/' . $module['name'],[
-                'items' => self::getItemsTables($module['name'],$userId)
-            ]);
-        }
-
-        return $tables;
-    }
-
-    /**
-     * @param string $module
-     * @param int $userId
-     * @return string|null
-     * @throws Exception
-     */
-    private static function getItemsTables(string $module, int $userId)
-    {
-        return null;
-    }
-
-    /**
-     * Método responsável por retornar a mensagem de status
-     * @param Request $request
-     * @return string|void
-     */
-    private static function getStatus(Request $request)
-    {
-        //QueryParams
-        $queryParams = $request->getQueryParams();
-
-        // Status existe
-        if(!isset($queryParams['status'])) return null;
-
-        //Mensagens de status
-        switch ($queryParams['status']){
-            case 'reset-pwd':
-                return Alert::getSuccess('Senha resetada com sucesso!');
-                break;
-            case 'created':
-                return Alert::getSuccess('Registro criado com sucesso!');
-                break;
-            case 'updated':
-                return Alert::getSuccess('Registro atualizado com sucesso!');
-                break;
-            case 'deleted':
-                return Alert::getSuccess('Registro excluído com sucesso!');
-                break;
-            case 'duplicated':
-                return Alert::getError('O registro ou descrição digitado já está sendo usado!');
-                break;
-            case 'error':
-                return Alert::getError('Ocorreu um erro ao buscar video!');
-                break;
-            case 'rejected':
-                return Alert::getWarning('Este registro não pode ser apagado, porque já está em uso!');
-                break;
-        }
-    }
-
-    /**
      * Método responsável por retornar a mensagem de status
      * @param string $status
      * @param string|null $msgError
      * @return string|void
      */
-    private static function getStatusV2(string $status, string $msgError = null)
+    private static function getStatus(string $status, string $msgError = null)
     {
 
         // Status existe
@@ -166,7 +83,7 @@ class YbDownload extends Page
     public static function getSearchVideos(Request $request)
     {
         // Carrega os dados da organização
-        $obOrganization = EntityOrganization::getOrganization(null, 'created_at DESC', 1)->fetchObject();
+        $obOrganization = new EntityOrganization();
 
         $postVars = $request->getPostVars();
         $url = $postVars['urlYoutube'];
@@ -174,7 +91,7 @@ class YbDownload extends Page
         if(!General::isValidUrlYouTube($postVars['urlYoutube'])){
             //$request->getRouter()->redirect('/search?status=error');
             $content = View::render('application/modules/yb-download/index', [
-                'status' => self::getStatusV2('rejected'),
+                'status' => self::getStatus('rejected'),
                 'displayImgVideo' => 'none',
                 'titleVideo' => null,
                 'urlImgVideo' => null,
@@ -186,7 +103,7 @@ class YbDownload extends Page
             if($items == 'error'){
                 //$request->getRouter()->redirect('/search?status=error');
                 $content = View::render('application/modules/yb-download/index', [
-                    'status' => self::getStatusV2('error'),
+                    'status' => self::getStatus('error'),
                     'displayImgVideo' => 'none',
                     'titleVideo' => null,
                     'urlImgVideo' => null,
@@ -292,7 +209,7 @@ class YbDownload extends Page
 
     /**
      * @param Request $request
-     * @return array|string|void
+     * @return array|void
      */
     public static function getDownloadYoutube(Request $request)
     {
@@ -354,50 +271,4 @@ class YbDownload extends Page
             //echo "Erro: " . $e->getMessage();
         }
     }
-
-    /**
-     * @param Request $request
-     * @return void
-     */
-    public static function getDownloadYoutubeV2(Request $request)
-    {
-        $queryParams = $request->getQueryParams();
-
-        $url = escapeshellarg($queryParams['url']);
-        $format = escapeshellarg($queryParams['format']);
-        $downloadPath = '/opt/youtube-download'; // Diretório temporário para download
-
-        // Cria o comando para yt-dlp com a combinação de vídeo e áudio
-        $command = "/usr/local/bin/yt-dlp -f $format+bestaudio --merge-output-format mp4 -o '$downloadPath/%(title)s.%(ext)s' $url";
-
-        try {
-            // Executa o comando e captura a saída
-            shell_exec($command);
-
-            // Obtém o nome do arquivo baixado
-            $files = glob("$downloadPath/*");
-            $filePath = end($files);
-
-            if (file_exists($filePath)) {
-                header('Content-Description: File Transfer');
-                header('Content-Type: application/octet-stream');
-                header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
-                header('Expires: 0');
-                header('Cache-Control: must-revalidate');
-                header('Pragma: public');
-                header('Content-Length: ' . filesize($filePath));
-                readfile($filePath);
-
-                // Remove o arquivo do servidor após o download
-                unlink($filePath);
-
-                exit;
-            } else {
-                $request->getRouter()->redirect('/search?status=error');
-            }
-        } catch (Exception $e) {
-            $request->getRouter()->redirect('/search?status=error');
-        }
-    }
-
 }

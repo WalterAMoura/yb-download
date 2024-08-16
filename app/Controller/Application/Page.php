@@ -46,7 +46,7 @@ class Page
         $username = $session['usuario']['nome']?? 'Conta';
 
         // Carrega os dados da organização
-        $obOrganization = EntityOrganization::getOrganization(null,'created_at DESC')->fetchObject();
+        $obOrganization = new EntityOrganization();
 
         // Renderiza a view do painel
         $contentPanel = View::render('application/panel', [
