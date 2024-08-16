@@ -181,7 +181,7 @@ class YbDownload extends Page
 
                     if ($bestThumbnail) {
                         // Exibe a miniatura com a maior resolução
-                        $thumbnailUrl = $bestThumbnail->getUrl();
+                        $thumbnailUrl = $bestThumbnail->getUrl()??URL . '/' . PATH_DOWNLOAD;
                     }
                 }
                 //print_r($video->getFormats());
