@@ -229,7 +229,7 @@ class YbDownload extends Page
 
         $options = Options::create()
             ->url($url)
-            ->downloadPath('/opt/youtube-download')
+            ->downloadPath(PATH_DOWNLOAD)
             ->format($format.'+bestaudio')
             ->mergeOutputFormat('mp4')
             ->output('%(title)s.%(ext)s');
@@ -251,7 +251,7 @@ class YbDownload extends Page
                         readfile($filePath);
 
                         // Remove o arquivo do servidor após o download
-                        unlink($filePath);
+                        //unlink($filePath);
 
                         exit;
                     } else {
