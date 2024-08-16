@@ -142,11 +142,11 @@ class YbDownload extends Page
         $thumbnailUrl = '';
         $yt =  new YoutubeDl();
 
-        $yt->setBinPath('/usr/local/bin/yt-dlp'); // Caminho para o yt-dlp
+        $yt->setBinPath(BIN_YT_DLP); // Caminho para o yt-dlp
         $collection = $yt->download(
             Options::create()
                 ->url($url)
-                ->downloadPath('/opt/youtube-download')
+                ->downloadPath(PATH_DOWNLOAD)
                 ->skipDownload(1) // Não faz o download, apenas lista os formatos
                 ->format('bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4') // Listar todos os formatos
         );
