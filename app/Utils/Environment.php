@@ -13,7 +13,7 @@ class Environment
         if(!file_exists($dir.'/.env')){
             return false;
         }
-
+        Debug::debug($dir.'/.env');
         //DEFINE AS VARIÁVEIS DE AMBIENTE
         $lines = file($dir.'/.env');
         foreach($lines as $line){
