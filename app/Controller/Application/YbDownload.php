@@ -62,7 +62,7 @@ class YbDownload extends Page
     public static function getHome(Request $request): string
     {
         // Carrega os dados da organização
-        $obOrganization = EntityOrganization::getOrganization(null, 'created_at DESC', 1)->fetchObject();
+        $obOrganization = new EntityOrganization();
 
         //Conteúdo da home
         $content = View::render('application/modules/yb-download/index', [
