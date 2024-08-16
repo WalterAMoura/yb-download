@@ -251,7 +251,7 @@ class YbDownload extends Page
                         readfile($filePath);
 
                         // Remove o arquivo do servidor após o download
-                        //unlink($filePath);
+                        unlink($filePath);
 
                         exit;
                     } else {
