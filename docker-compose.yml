@@ -1,8 +1,8 @@
 version: '3'
 services:
-  web:
+  webserver-download-youtube:
     build: .
     ports:
-      - "80:80"
+      - "8000:80"
     volumes:
       - ./:/var/www/html
