@@ -98,7 +98,7 @@ class Router
         $uri = explode('/',$uri);
 
         // Define o path do usuário
-        $this->path_user = '/'.$uri['1'] ?? '';
+        $this->path_user = '/'.$uri[0] ?? '';
     }
 
     /**

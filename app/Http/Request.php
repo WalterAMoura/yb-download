@@ -118,7 +118,7 @@ class Request
         $uri = explode('/',$uri[0]);
 
         // Define o path do usuário
-        $this->path_user = '/'.$uri['2'] ?? '';
+        $this->path_user = '/'.$uri[1] ?? '';
     }
 
     /**

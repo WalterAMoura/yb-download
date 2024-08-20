@@ -49,10 +49,10 @@ class Session
 
     /**
      * Método responsável por executar logout do usuário
-     * @param string|null $path
+     * @param string $path
      * @return boolean
      */
-    public static function destroy(string $path = null): bool
+    public static function destroy(string $path = '/'): bool
     {
         // Inicia a sessão
         self::init();
