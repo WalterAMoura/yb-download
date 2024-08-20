@@ -1,18 +1,5 @@
 *{margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif;}
 
-.mainCalendar, .calendarUser, .calendarManager, .mainCalendarEventsChurch{
-    width: 100%;
-    margin: 30px auto;
-    height: 125vh;
-}
-.calendar, .calendarEventsChurch{
-    height: 55vh;
-}
-.calendarTeamLineup{
-    width: 100%;
-    margin: 30px auto;
-    height: 75vh;
-}
 a.disabled {
     pointer-events: none;
     color: rgb(128, 128, 128);
@@ -42,4 +29,19 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+#progressContainer {
+    width: 100%;
+    background-color: #f3f3f3;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+#progressBar {
+    height: 25px;
+    width: 0%;
+    background-color: #4caf50;
+    text-align: center;
+    color: white;
 }

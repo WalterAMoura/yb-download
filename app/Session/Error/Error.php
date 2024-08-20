@@ -2,10 +2,6 @@
 
 namespace App\Session\Error;
 
-use App\Model\Entity\SessionLogin;
-use App\Model\Entity\User;
-use App\Utils\JWEEncrypt;
-
 class Error
 {
     /**

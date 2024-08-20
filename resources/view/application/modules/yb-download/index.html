@@ -23,14 +23,21 @@
             </div>
         </form>
         {{status}}
-        <div class="card card-outline card-success">
+        <div class="progress" id="progressContainer">
+            <div id="progressBar" class="progress-bar bg-primary progress-bar-striped" role="progressbar"
+                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <span class="sr-only">0% Complete (success)</span>
+            </div>
+        </div>
+        <div class="brand-image" style="opacity: .8;display: none; justify-content: center;  align-items: center;  height: 400px;" id="idDivLoading"><img style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);" src="{{URL}}/lib/img/loading.gif" width="48" height="48" alt="Loading">
+        </div>
+        <div class="card card-outline card-success"  style="display: {{displayTabela}}">
             <div class="card-header text-center">
                 <h3 class="card-title">{{titleVideo}}</h3>
             </div>
+
             <div class="card-body">
-                <div class="brand-image" style="opacity: .8;display: none; justify-content: center;  align-items: center;  height: 400px;" id="div-team-lineup-loading"><img style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);" src="{{URL}}/lib/img/loading.gif" width="48" height="48" alt="Loading">
-                </div>
-                <div class="row"  id="div-table-list-videos" style="display: none">
+                <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="login-logo" style="display: {{displayImgVideo}}">
                             <img src="{{urlImgVideo}}" alt="Miniatura Video" class="brand-image" style="opacity: .8" height="180" width="320">
@@ -41,8 +48,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
     <!-- /.form-box -->

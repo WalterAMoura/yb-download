@@ -7,6 +7,7 @@ use App\Model\Entity\Organization as EntityOrganization;
 use App\Utils\Debug;
 use App\Utils\General;
 use App\Utils\View;
+use App\Session\Session;
 use DateTime;
 use DateTimeZone;
 use Exception;
@@ -61,6 +62,9 @@ class YbDownload extends Page
      */
     public static function getHome(Request $request): string
     {
+        // destroy as sessões
+        Session::destroy();
+
         // Carrega os dados da organização
         $obOrganization = new EntityOrganization();
 
@@ -70,7 +74,8 @@ class YbDownload extends Page
             'table' => null,
             'titleVideo' => null,
             'urlImgVideo' => null,
-            'displayImgVideo' => 'none'
+            'displayImgVideo' => 'none',
+            'displayTabela' => 'none'
         ]);
 
         // Retorna a pagina completa
@@ -95,7 +100,8 @@ class YbDownload extends Page
                 'displayImgVideo' => 'none',
                 'titleVideo' => null,
                 'urlImgVideo' => null,
-                'table' => null
+                'table' => null,
+                'displayTabela' => 'none'
             ]);
         }else{
             $items = self::getItemsSearchVideos($request,$url);
@@ -107,7 +113,8 @@ class YbDownload extends Page
                     'displayImgVideo' => 'none',
                     'titleVideo' => null,
                     'urlImgVideo' => null,
-                    'table' => null
+                    'table' => null,
+                    'displayTabela' => 'none'
                 ]);
             }else{
                 $table = View::render('application/modules/yb-download/search/tables/tables/youtube-download', [
@@ -120,7 +127,8 @@ class YbDownload extends Page
                     'displayImgVideo' => 'block',
                     'titleVideo' => $items['videoTitle'],
                     'urlImgVideo' => $items['urlImgVideo'],
-                    'table' => $table
+                    'table' => $table,
+                    'displayTabela' => 'block'
                 ]);
             }
         }
@@ -198,6 +206,9 @@ class YbDownload extends Page
                             'codec' => $format->getVcodec(),
                             'tbr' => htmlspecialchars($format->getTbr()),
                             'downloadUrl' => $downloadUrl,
+                            'videoId' => $videoId,
+                            'format' => $format->getFormatId(),
+                            'videoTitle' => $videoTitle,
                         ]);
                     }
                 }
@@ -214,7 +225,7 @@ class YbDownload extends Page
     public static function getDownloadYoutube(Request $request)
     {
         ini_set('memory_limit', '1G'); // ou '1G' para 1 GB
-
+        //$session =
         $queryParams = $request->getQueryParams();
         //Debug::debug($queryParams);
         $videoId = $queryParams['videoId'];
@@ -225,7 +236,7 @@ class YbDownload extends Page
 
         $yt = new YoutubeDl();
 
-        $yt->setBinPath('/usr/local/bin/yt-dlp'); // Caminho para o yt-dlp
+        $yt->setBinPath(BIN_YT_DLP); // Caminho para o yt-dlp
 
         $options = Options::create()
             ->url($url)
@@ -241,6 +252,9 @@ class YbDownload extends Page
                 if ($video->getError() === null) {
                     $filePath = $video->getFile();
                     if (file_exists($filePath)) {
+                        // Atualiza o progresso do download
+                        //$_SESSION['download_progress'] = 100; // Considerando o download como 100% completo
+                        Session::setSessionProgress(100);
                         header('Content-Description: File Transfer');
                         header('Content-Type: application/octet-stream');
                         header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
@@ -270,5 +284,17 @@ class YbDownload extends Page
             return [ 'status' => 'error', 'msg' => $e->getMessage() ];
             //echo "Erro: " . $e->getMessage();
         }
+    }
+
+    /**
+     * Método responsável por retornar o % de download
+     * @param $request
+     * @return array
+     */
+    public static function getProgess($request)
+    {
+        $session = Session::getDataSession();
+
+        return [ 'status' => 'success', 'percent' => $session['download_progress']['percent']??0 ];
     }
 }

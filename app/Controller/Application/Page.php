@@ -7,12 +7,44 @@ use App\Http\Request;
 use App\Model\Entity\Organization as EntityOrganization;
 use App\Utils\Debug;
 use App\Utils\View;
+use App\Utils\ViewJS;
 use DateTime;
 use DateTimeZone;
 use Exception;
 
 class Page
 {
+    /**
+     * @var array
+     */
+    private static array $scripts = [
+        'utils' => [
+            'script' => 'application/js/scripts/utils',
+            'timeout' => null
+        ]
+    ];
+
+    /**
+     * Método responsável por retornar os scripts js
+     * @return string
+     */
+    private static function getScripts(): string
+    {
+        //scripts
+        $scripts = '';
+
+        //Intera nos módulos
+        foreach (self::$scripts as $module) {
+            $scripts .= ViewJS::render($module['script'],[
+            ]);
+        }
+
+        // retornar os scripts para todas as páginas
+        return View::render('application/js/view/script',[
+            'scripts' => $scripts
+        ]);
+    }
+
     /**
      * Método responsável por retornar o conteúdo da estrutura de páginas do painel
      * @param string $title
@@ -26,8 +58,7 @@ class Page
         return View::render('application/page', [
             'title' => $title,
             'content' => $content,
-            'scriptTable' => null,
-            'scripts' => null
+            'scripts' => self::getScripts()
         ]);
     }
 

@@ -3,8 +3,9 @@
   <td>{{resolution}}</td>
   <td>{{tbr}}</td>
   <td>
-    <a href="{{URL}}/{{MAIN_PATH_APP}}/download?{{downloadUrl}}">
-      <button type="submit" class="btn btn-success btn-block">Download</button>
-    </a>
+    <button type="submit" class="btn btn-success btn-block" onclick="startDownload('{{videoId}}','{{format}}','{{videoTitle}}')">Download</button>
+    <!--<a href="{{URL}}/{{MAIN_PATH_APP}}/download?{{downloadUrl}}">
+      <button type="submit" class="btn btn-success btn-block" onclick="startDownload('{{videoId}}','{{format}}','{{videoTitle}}')">Download</button>
+    </a>-->
   </td>
 </tr>
