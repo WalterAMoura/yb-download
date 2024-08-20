@@ -3,7 +3,7 @@
         'name' => 'sleyersx/youtube-download',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'e286c74f89270071b820cb127fa608c18342d74d',
+        'reference' => '102c089e3fa2855e56a72fa90d1544d10c9b0758',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -24,7 +24,7 @@
         'sleyersx/youtube-download' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'e286c74f89270071b820cb127fa608c18342d74d',
+            'reference' => '102c089e3fa2855e56a72fa90d1544d10c9b0758',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
