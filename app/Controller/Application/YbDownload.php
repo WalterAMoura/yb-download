@@ -241,7 +241,7 @@ class YbDownload extends Page
         $options = Options::create()
             ->url($url)
             ->downloadPath(PATH_DOWNLOAD)
-            ->format($format.'+bestaudio')
+            ->format($format.'+bestaudio[ext=m4a]/mp4')
             ->mergeOutputFormat('mp4')
             ->output('%(title)s.%(ext)s');
 
