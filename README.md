@@ -86,7 +86,3 @@ Sinta-se à vontade para contribuir com o projeto. Se encontrar algum problema o
 ## Licença
 
 Este projeto está licenciado sob a [MIT License](LICENSE).
-
----
-
-Se precisar de mais informações ou ajuda, consulte a documentação do Docker ou entre em contato com o mantenedor do projeto.
